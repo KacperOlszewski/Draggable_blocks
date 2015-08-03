@@ -18,6 +18,7 @@ $( document ).ready(function() {
 
 $('#grid').on('mouseover', '.spot', function(){ 
 	$(this).draggable({
+		containment: "parent",
 		start: function() {
 		    $(this).addClass('lifted');
 		      previous_position_x = $(this).attr('x-position');
