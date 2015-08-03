@@ -1,0 +1,27 @@
+<div id="grid">
+  
+  <% @spots.each do |s| %>
+    <div  class="spot" 
+        id='spot<%= s.id  %>' 
+        x-position="<%= s.position_x %>" 
+        y-position="<%= s.position_y %>">
+        <%= s.name %>
+      <%= form_for(s, remote: true) do |f| %>
+          <%= f.hidden_field :position_x, id: "pos_x" %>
+          <%= f.hidden_field :position_y, id: "pos_y" %>
+
+      <% end %>
+
+    </div>
+  <% end %>
+  
+</div>
+<div>
+  <%= form_for(@spot, remote: true) do |s| %>
+      <%= s.text_field :name, id: "new_name" %>
+      <%= s.number_field :position_x, id: "new_x" %>
+      <%= s.number_field :position_y, id: "new_y" %>
+      <%= s.submit %>
+  <% end %>
+
+</div>

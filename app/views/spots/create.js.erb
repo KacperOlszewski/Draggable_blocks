@@ -1,0 +1,13 @@
+$('#grid').append('<%= j render @spot %>');
+var new_block = $("#spot<%= @spot.id %>");
+var x = new_block.attr('x-position');
+var y = new_block.attr('y-position');
+$("#spot<%= @spot.id %>").css({
+        'left': x + "px",
+        'top' : y + "px"
+      }).hide().fadeIn(500);
+
+$('body').on('mouseover', '#spot<%= @spot.id %>',
+    function(){ 
+        $(this).draggable(); 
+});

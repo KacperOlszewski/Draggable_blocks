@@ -1,0 +1,13 @@
+
+	<div 	class="spot" 
+			id="spot<%= spot.id %>" 
+			x-position="<%= spot.position_x %>" 
+			y-position="<%= spot.position_y %>">
+			<%= spot.name %>
+			<%= form_for(spot, remote: true) do |f| %>
+			    <%= f.hidden_field :position_x, id: "pos_x" %>
+			    <%= f.hidden_field :position_y, id: "pos_y" %>
+
+			<% end %>
+
+	</div>
