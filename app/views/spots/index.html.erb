@@ -1,7 +1,7 @@
 <div id="grid">
   
   <% @spots.each do |s| %>
-    <div  class="spot" 
+    <div  class="spot resting" 
         id='spot<%= s.id  %>' 
         x-position="<%= s.position_x %>" 
         y-position="<%= s.position_y %>">

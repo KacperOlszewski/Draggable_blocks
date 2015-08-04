@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-  get 'public/index'
 
   resources :spots
 
-  root 'public#index'
+  root 'spots#index'
 
 end
