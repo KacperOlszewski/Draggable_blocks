@@ -23,19 +23,6 @@ $( document ).ready(function() {
 			    $(this).addClass('lifted').removeClass('resting');
 			      previous_position_x = $(this).attr('x-position');
 			      previous_position_y = $(this).attr('y-position');
-			      colision = false;
-			},
-	 		drag: function() {
-
-					$('.resting').on('mouseenter', function () {
-
-						colision = true;
-
-					}).on('mouseleave', function () {
-
-						colision = false;
-
-					});
 			},
 			stop: function(){
 			    var offset = $(this).offset();
@@ -43,22 +30,11 @@ $( document ).ready(function() {
 			    var pos_y = offset.top - container.top +4;
 			    $(this).removeClass('lifted');
 			    $(this).addClass('resting');
-			        if (colision == false) {
+
 				        $(this).find('#pos_x').val(pos_x);
 				        $(this).find('#pos_y').val(pos_y);
 				        $(this).find('form').submit();
-				        			    colision = false;
-			    	}
-			    	else {
-			    					    colision = false;
-					    $(this).animate({
-						        left: previous_position_x,
-						        top: previous_position_y
-					    }, 490, 
-					    function() {
-					        alert("You can't do that!");
-					    });
-			    }
+
 
 			}
 		});
