@@ -1,12 +1,17 @@
 $( document ).ready(function() {
 
-  var obj = $('.spot')
+  var $obj = $('.spot')
   var container = $('#grid').offset();
   var previous_position_x;
   var previous_position_y;
   var colision = false;
+  var spot = {
+  	colision: false,
+  	lifted: false
+  }
 
-  $(obj).each(function() {
+
+  $obj.each(function() {
       var x = $(this).attr('x-position');
       var y = $(this).attr('y-position');
 
@@ -23,15 +28,15 @@ $( document ).ready(function() {
 			    $(this).addClass('lifted').removeClass('resting');
 			      previous_position_x = $(this).offset().left - container.left +4;
 			      previous_position_y = $(this).offset().top - container.top +4;
-			      colision = false;
+			      spot.colision = false;
 			},
 	 		drag: function() {
 				$('.resting').hover(
 				  function () {
-				    colision = true;
+				    spot.colision = true;
 				  }, 
 				  function () {
-				    colision = false;
+				    spot.colision = false;
 				  }
 				);
 			},
@@ -41,7 +46,7 @@ $( document ).ready(function() {
 			    var pos_y = offset.top - container.top +4;
 			    $(this).removeClass('lifted');
 			    $(this).addClass('resting');
-			        if (colision == false) {
+			        if (spot.colision == false) {
 				        $(this).find('#pos_x').val(pos_x);
 				        $(this).find('#pos_y').val(pos_y);
 				        $(this).find('form').submit();
@@ -73,3 +78,5 @@ $( document ).ready(function() {
     });
 
 });
+
+
