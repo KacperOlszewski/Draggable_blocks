@@ -16,7 +16,7 @@
   <% end %>
   
 </div>
-<div>
+<div class="fresh_spot">
   <%= form_for(@spot, remote: true) do |s| %>
       <%= s.text_field :name, id: "new_name" %>
       <%= s.number_field :position_x, id: "new_x" %>

@@ -3,7 +3,7 @@ Spot.destroy_all
 $n = 1
 $a
 $b
-while $n < 6
+while $n < 10
 
 	x = rand(100..900)
 	y = rand(100..900)
@@ -20,7 +20,7 @@ while $n < 6
 		$b = y
 	else
 		
-		if ((Spot.all.map{|old_x| old_x.position_x}.all?{|element| element.between?(x-25, x+25)})==true and (Spot.all.map{|old_y| old_y.position_y}.all?{|element| element.between?(y-25, y+25)})==true) 
+		if ((Spot.all.map{|old_x| old_x.position_x}.all?{|element| element.between?(x-125, x+125)})==true and (Spot.all.map{|old_y| old_y.position_y}.all?{|element| element.between?(y-105, y+105)})==true) 
 			p 'colisions'
 		else
 			Spot.create(

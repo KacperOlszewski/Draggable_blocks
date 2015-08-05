@@ -4,7 +4,7 @@ $( document ).ready(function() {
   var container = $('#grid').offset();
   var previous_position_x;
   var previous_position_y;
-  var colision;
+  var colision = false;
 
   $(obj).each(function() {
       var x = $(this).attr('x-position');
@@ -21,21 +21,19 @@ $( document ).ready(function() {
 			containment: "parent",
 			start: function() {
 			    $(this).addClass('lifted').removeClass('resting');
-			      previous_position_x = $(this).attr('x-position');
-			      previous_position_y = $(this).attr('y-position');
+			      previous_position_x = $(this).offset().left - container.left +4;
+			      previous_position_y = $(this).offset().top - container.top +4;
 			      colision = false;
 			},
 	 		drag: function() {
-
-					$('.resting').on('mouseenter', function () {
-
-						colision = true;
-
-					}).on('mouseleave', function () {
-
-						colision = false;
-
-					});
+				$('.resting').hover(
+				  function () {
+				    colision = true;
+				  }, 
+				  function () {
+				    colision = false;
+				  }
+				);
 			},
 			stop: function(){
 			    var offset = $(this).offset();
@@ -47,10 +45,9 @@ $( document ).ready(function() {
 				        $(this).find('#pos_x').val(pos_x);
 				        $(this).find('#pos_y').val(pos_y);
 				        $(this).find('form').submit();
-				        			    colision = false;
 			    	}
 			    	else {
-			    					    colision = false;
+			    		colision = false;
 					    $(this).animate({
 						        left: previous_position_x,
 						        top: previous_position_y
@@ -76,5 +73,3 @@ $( document ).ready(function() {
     });
 
 });
-
-
