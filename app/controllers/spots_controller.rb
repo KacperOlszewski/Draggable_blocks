@@ -1,10 +1,10 @@
 class SpotsController < ApplicationController
   before_action :set_spot, only: [:show, :edit, :update, :destroy]
 
-  # GET /spots
+  # GET /spot
   # GET /spots.json
   def index
-    @spots = Spot.all
+      @spots = Spot.all
      @spot = Spot.new
   end
 
@@ -26,7 +26,7 @@ class SpotsController < ApplicationController
   # POST /spots.json
   def create
     @spot = Spot.new(spot_params)
-
+    binding.pry
     respond_to do |format|
       if @spot.save
         format.html { redirect_to @spot, notice: 'Spot was successfully created.' }
