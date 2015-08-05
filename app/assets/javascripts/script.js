@@ -51,6 +51,18 @@ $( document ).ready(function() {
         
     });
 
+  document.oncontextmenu = function() {return false;};
+
+  $('.spot').on('mousedown', function(e){ 
+    if( e.button == 2 ) { 
+      $(this).find('.destroy').trigger('click');
+      $(this).remove();
+      return false; 
+    } 
+    e.preventDefault();
+    return true; 
+  }); 
+
 });
 
 
