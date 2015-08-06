@@ -26,14 +26,14 @@ class SpotsController < ApplicationController
   # POST /spots.json
   def create
     @spot = Spot.new(spot_params)
-    binding.pry
+    #binding.pry
     respond_to do |format|
       if @spot.save
         format.html { redirect_to @spot, notice: 'Spot was successfully created.' }
         format.js
       else
         format.html { render :new }
-        format.json { render json: @spot.errors, status: :unprocessable_entity }
+        format.js { render js: @spot.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -44,7 +44,7 @@ class SpotsController < ApplicationController
     respond_to do |format|
       if @spot.update(spot_params)
         format.html { redirect_to @spot, notice: 'Spot was successfully updated.' }
-        format.json { render :show, status: :ok, location: @spot }
+        format.js { render :show, status: :ok, location: @spot }
       else
         format.html { render :edit }
         format.json { render json: @spot.errors, status: :unprocessable_entity }
@@ -56,10 +56,7 @@ class SpotsController < ApplicationController
   # DELETE /spots/1.json
   def destroy
     @spot.destroy
-    respond_to do |format|
-      format.html { redirect_to spots_url, notice: 'Spot was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to root_url
   end
 
   private

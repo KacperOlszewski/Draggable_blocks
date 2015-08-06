@@ -7,8 +7,8 @@ $( document ).ready(function() {
   var colision;
 
   $(obj).each(function() {
-      var x = $(this).attr('x-position');
-      var y = $(this).attr('y-position');
+      var x =  parseInt($(this).attr('x-position')) - container.left;
+      var y =  parseInt($(this).attr('y-position')) - container.top;
 
       $(this).css({
         'left': x + "px",
@@ -26,8 +26,8 @@ $( document ).ready(function() {
 			},
 			stop: function(){
 			    var offset = $(this).offset();
-			    var pos_x = offset.left - container.left +4;
-			    var pos_y = offset.top - container.top +4;
+			    var pos_x = offset.left - container.left;
+			    var pos_y = offset.top - container.top;
 			    $(this).removeClass('lifted');
 			    $(this).addClass('resting');
 
@@ -42,8 +42,8 @@ $( document ).ready(function() {
 
     $('#grid').click(function (e) {
 
-        var new_x = e.pageX - container.left -12,
-          new_y = e.pageY - container.top -12;
+        var new_x = e.pageX - container.left,
+          new_y = e.pageY - container.top;
           $('#new_name').val('new_block_'+ Math.floor(Math.random()*10));
           $('#new_x').val(new_x);
           $('#new_y').val(new_y);
@@ -56,7 +56,7 @@ $( document ).ready(function() {
   $('.spot').on('mousedown', function(e){ 
     if( e.button == 2 ) { 
       $(this).find('.destroy').trigger('click');
-      $(this).remove();
+      $(this).hide(300).remove();
       return false; 
     } 
     e.preventDefault();
