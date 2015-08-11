@@ -6,7 +6,7 @@
         x-position="<%= s.position_x %>" 
         y-position="<%= s.position_y %>">
         <%= s.name %>
-      <%= form_for(s, remote: true) do |f| %>
+      <%= form_for(s) do |f| %>
           <%= f.hidden_field :position_x, id: "pos_x" %>
           <%= f.hidden_field :position_y, id: "pos_y" %>
 

@@ -47,7 +47,7 @@ class SpotsController < ApplicationController
         format.js {render layout: false}
       else
         format.html { render :edit }
-        format.json { render json: @spot.errors, status: :unprocessable_entity }
+        format.js { render json: @spot.errors, status: :unprocessable_entity,  notice: 'Spot was not updated.' }
       end
     end
   end

@@ -4,7 +4,6 @@ $( document ).ready(function() {
   var container = $('#grid').offset();
   var previous_position_x;
   var previous_position_y;
-  var colision;
 
   $(obj).each(function() {
       var x =  parseInt($(this).attr('x-position'));
@@ -13,29 +12,42 @@ $( document ).ready(function() {
       $(this).css({
         'left': x - container.left + "px",
         'top' : y - container.top + "px"
-      })
+      });
   });
 
 	$('#grid').on('mouseover', '.spot', function(){ 
+		var $this = $(this);
 		$(this).draggable({
 			containment: "parent",
 			start: function() {
-			    $(this).addClass('lifted').removeClass('resting');
-			      previous_position_x = $(this).attr('x-position');
-			      previous_position_y = $(this).attr('y-position');
+				  var old_position = $(this).offset();
+			      previous_position_x = old_position.left + container.left - 4;
+			      previous_position_y = old_position.top + container.top - 4;
 			},
 			stop: function(){
+				var $form = $(this).find('form');
 			    var offset = $(this).offset();
 			    var pos_x = offset.left + container.left - 4;
 			    var pos_y = offset.top + container.top - 4;
-			    $(this).removeClass('lifted');
-			    $(this).addClass('resting');
 
-				        $(this).find('#pos_x').val(pos_x);
-				        $(this).find('#pos_y').val(pos_y);
-				        $(this).find('form').submit();
+				$(this).find('#pos_x').val(pos_x);
+				$(this).find('#pos_y').val(pos_y);
 
-
+				$form.ajaxSubmit({
+					url: $form.attr('action')+".js", 
+					type: $form.attr('method'),
+			  		success: function () {
+		                console.log('udało się!');
+		            }, 
+			  		error: function () {
+		                $this.animate({
+					        'left': previous_position_x + "px",
+					        'top' : previous_position_y + "px"
+					      }, 400, function() {
+					      	alert("You can't do that, space is occupied");
+					      });
+		            }, 
+				});
 			}
 		});
 	});
@@ -54,7 +66,7 @@ $( document ).ready(function() {
                 console.log('udało się');
             }, 
 	  		error: function (data) {
-                alert("You can't do that!");
+                alert("You can't do that, space is occupied");
             }, 
 		});
 	});

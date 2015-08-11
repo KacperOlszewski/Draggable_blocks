@@ -7,7 +7,7 @@ class Spot < ActiveRecord::Base
 
   def free_area
     if Spot.in_area(position_x, position_y).any?
-      errors.add(:area, "this area is not free")
+      errors.add(:area, "this area is occupied")
     end
   end
 
