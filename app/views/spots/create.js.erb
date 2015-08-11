@@ -2,7 +2,8 @@ $('#grid').append('<%= j render @spot %>');
 var new_block = $("#spot<%= @spot.id %>");
 var x = new_block.attr('x-position');
 var y = new_block.attr('y-position');
+var container = $('#grid').offset();
 $("#spot<%= @spot.id %>").css({
-        'left': x + "px",
-        'top' : y + "px"
+        'left': x - container.left + "px",
+        'top' : y - container.top + "px"
       }).hide().fadeIn(400);

@@ -44,7 +44,7 @@ class SpotsController < ApplicationController
     respond_to do |format|
       if @spot.update(spot_params)
         format.html { redirect_to @spot, notice: 'Spot was successfully updated.' }
-        format.js { render :show, status: :ok, location: @spot }
+        format.js {render layout: false}
       else
         format.html { render :edit }
         format.json { render json: @spot.errors, status: :unprocessable_entity }

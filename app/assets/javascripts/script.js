@@ -7,12 +7,12 @@ $( document ).ready(function() {
   var colision;
 
   $(obj).each(function() {
-      var x =  parseInt($(this).attr('x-position')) - container.left;
-      var y =  parseInt($(this).attr('y-position')) - container.top;
+      var x =  parseInt($(this).attr('x-position'));
+      var y =  parseInt($(this).attr('y-position'));
 
       $(this).css({
-        'left': x + "px",
-        'top' : y + "px"
+        'left': x - container.left + "px",
+        'top' : y - container.top + "px"
       })
   });
 
@@ -26,8 +26,8 @@ $( document ).ready(function() {
 			},
 			stop: function(){
 			    var offset = $(this).offset();
-			    var pos_x = offset.left - container.left;
-			    var pos_y = offset.top - container.top;
+			    var pos_x = offset.left + container.left - 4;
+			    var pos_y = offset.top + container.top - 4;
 			    $(this).removeClass('lifted');
 			    $(this).addClass('resting');
 
@@ -43,26 +43,34 @@ $( document ).ready(function() {
     $('#grid').click(function (e) {
 
         var new_x = e.pageX - container.left,
-          new_y = e.pageY - container.top;
-          $('#new_name').val('new_block_'+ Math.floor(Math.random()*10));
-          $('#new_x').val(new_x);
-          $('#new_y').val(new_y);
-          $('#new_spot').submit();
-        
-    });
+        new_y = e.pageY - container.top;
+        var name_block = ('new_block_'+ Math.floor(Math.random()*10));
+
+    	$.ajax({
+	  		method: "POST",
+	  		url: "/spots.js",
+	  		data: { spot: {position_x: new_x, position_y: new_y, name: name_block} },
+	  		success: function (data) {
+                console.log('udało się');
+            }, 
+	  		error: function (data) {
+                alert("You can't do that!");
+            }, 
+		});
+	});
+
 
   document.oncontextmenu = function() {return false;};
 
   $('.spot').on('mousedown', function(e){ 
+    e.preventDefault();
     if( e.button == 2 ) { 
       $(this).find('.destroy').trigger('click');
       $(this).hide(300).remove();
       return false; 
     } 
-    e.preventDefault();
-    return true; 
+    return false; 
   }); 
 
 });
-
 
