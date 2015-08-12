@@ -5,6 +5,7 @@ $( document ).ready(function() {
   var previous_position_x;
   var previous_position_y;
 
+  // INITIALIZE SPOTS
   $(obj).each(function() {
       var x =  parseInt($(this).attr('x-position'));
       var y =  parseInt($(this).attr('y-position'));
@@ -15,21 +16,24 @@ $( document ).ready(function() {
       });
   });
 
+  // UPDATE SPOT
 	$('#grid').on('mouseover', '.spot', function(){ 
 		var $this = $(this);
 		$(this).draggable({
 			containment: "parent",
 			start: function() {
 				  var old_position = $(this).offset();
-			      previous_position_x = old_position.left + container.left - 4;
-			      previous_position_y = old_position.top + container.top - 4;
+				  $(this).addClass('lifted');
+			      previous_position_x = old_position.left;
+			      previous_position_y = old_position.top;
 			},
 			stop: function(){
-				var $form = $(this).find('form');
+				var $form = $(this).find('form.update');
 			    var offset = $(this).offset();
 			    var pos_x = offset.left + container.left - 4;
 			    var pos_y = offset.top + container.top - 4;
 
+			    $(this).removeClass('lifted');
 				$(this).find('#pos_x').val(pos_x);
 				$(this).find('#pos_y').val(pos_y);
 
@@ -41,9 +45,9 @@ $( document ).ready(function() {
 		            }, 
 			  		error: function () {
 		                $this.animate({
-					        'left': previous_position_x + "px",
-					        'top' : previous_position_y + "px"
-					      }, 400, function() {
+					        'left': previous_position_x - container.left + "px",
+					        'top' : previous_position_y - container.top + "px"
+					      }, 360, function() {
 					      	alert("You can't do that, space is occupied");
 					      });
 		            }, 
@@ -52,6 +56,7 @@ $( document ).ready(function() {
 		});
 	});
 
+	// CREATE SPOT
     $('#grid').click(function (e) {
 
         var new_x = e.pageX - container.left,
@@ -71,18 +76,16 @@ $( document ).ready(function() {
 		});
 	});
 
+    // DELETE SPOT - Mouseover + "d"
+	obj.hover(function(){
+	   $(this).toggleClass('removeable');
+	});
+	$(document).on('keypress', function(e) {    
+	    if(e.which == 100){
 
-  document.oncontextmenu = function() {return false;};
-
-  $('.spot').on('mousedown', function(e){ 
-    e.preventDefault();
-    if( e.button == 2 ) { 
-      $(this).find('.destroy').trigger('click');
-      $(this).hide(300).remove();
-      return false; 
-    } 
-    return false; 
-  }); 
-
+	      $('.removeable').find('.destroy').submit();
+	      $('.removeable').remove();
+	    }
+	});
 });
 

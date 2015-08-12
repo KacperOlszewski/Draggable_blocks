@@ -4,7 +4,7 @@ class SpotsController < ApplicationController
   # GET /spot
   # GET /spots.json
   def index
-      @spots = Spot.all
+     @spots = Spot.all
      @spot = Spot.new
   end
 
@@ -29,10 +29,8 @@ class SpotsController < ApplicationController
     #binding.pry
     respond_to do |format|
       if @spot.save
-        format.html { redirect_to @spot, notice: 'Spot was successfully created.' }
         format.js
       else
-        format.html { render :new }
         format.js { render js: @spot.errors, status: :unprocessable_entity }
       end
     end
@@ -43,10 +41,8 @@ class SpotsController < ApplicationController
   def update
     respond_to do |format|
       if @spot.update(spot_params)
-        format.html { redirect_to @spot, notice: 'Spot was successfully updated.' }
         format.js {render layout: false}
       else
-        format.html { render :edit }
         format.js { render json: @spot.errors, status: :unprocessable_entity,  notice: 'Spot was not updated.' }
       end
     end
@@ -56,7 +52,7 @@ class SpotsController < ApplicationController
   # DELETE /spots/1.json
   def destroy
     @spot.destroy
-    redirect_to root_url
+    render json: @spot.errors
   end
 
   private

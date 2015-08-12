@@ -1,14 +1,14 @@
-
 	<div 	class="spot" 
 			id="spot<%= spot.id %>" 
 			x-position="<%= spot.position_x %>" 
 			y-position="<%= spot.position_y %>">
-			<%= spot.name %>
-			<%= form_for(spot, remote: true) do |f| %>
+
+			<%= form_for(spot, :html => { class: 'update' }) do |f| %>
 			    <%= f.hidden_field :position_x, id: "pos_x" %>
 			    <%= f.hidden_field :position_y, id: "pos_y" %>
 
 			<% end %>
-			<%= link_to "Destroy", spot, method: :delete, class: "destroy", remote: true %>
-
+			<%= form_for(spot, :html => { :method => :delete, :remote => true, class: 'destroy' }) do |f| %>
+		        <%= f.submit %>
+		    <% end %>
 	</div>
