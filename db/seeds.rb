@@ -1,6 +1,6 @@
 Spot.destroy_all
 
-while Spot.count < 30
+while Spot.count < 5
 
 	x = rand(100..900)
 	y = rand(100..900)
