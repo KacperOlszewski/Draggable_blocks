@@ -77,9 +77,12 @@ $( document ).ready(function() {
 	});
 
     // DELETE SPOT - Mouseover + "d"
-	obj.hover(function(){
-	   $(this).toggleClass('removeable');
+	$(document).on('mouseenter', '.spot', function(){
+	   $(this).addClass('removeable');
+	}).on('mouseleave','.spot', function(){
+	   $(this).removeClass('removeable')
 	});
+
 	$(document).on('keypress', function(e) {    
 	    if(e.which == 100){
 
